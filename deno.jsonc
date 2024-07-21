@@ -1,0 +1,5 @@
+{
+	"tasks" : {
+		"jpeg" : "deno run -A ./jpeg/jpeg.js"
+	}
+}
