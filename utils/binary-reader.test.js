@@ -167,7 +167,23 @@ Deno.test("binaryReader: readCString", () => {
 	assertEquals(binaryReader.byteIndex, 12);
 });
 
-Deno.test("binaryReader: fastFowardBits", () => {
+Deno.test("binaryReader: readStringUntilCode", () => {
+	const buffer = new Uint8Array([...new TextEncoder().encode("hello world"), 0x00, 0xFF, 0x0E]);
+	const binaryReader = new BinaryReader(buffer.buffer);
+	const string = binaryReader.readStringUntilCode(32);
+	assertEquals(string, "hello");
+	assertEquals(binaryReader.byteIndex, 6);
+});
+
+Deno.test("binaryReader: readStringUntilChar", () => {
+	const buffer = new Uint8Array([...new TextEncoder().encode("hello world"), 0x00, 0xFF, 0x0E]);
+	const binaryReader = new BinaryReader(buffer.buffer);
+	const string = binaryReader.readStringUntilChar("o");
+	assertEquals(string, "hell");
+	assertEquals(binaryReader.byteIndex, 5);
+});
+
+Deno.test("binaryReader: fastForwardBits", () => {
 	const buffer = new Uint8Array([0b0000_0101, 0b11110010]);
 	const binaryReader = new BinaryReader(buffer.buffer);
 	binaryReader.fastForwardBits(2);

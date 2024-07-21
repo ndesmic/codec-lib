@@ -1,5 +1,6 @@
 {
 	"tasks" : {
-		"jpeg" : "deno run -A ./jpeg/jpeg.js"
+		"jpeg" : "deno run -A ./jpeg/jpeg.js",
+		"pdf" : "deno run -A ./pdf/pdf.js"
 	}
 }

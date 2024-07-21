@@ -73,6 +73,9 @@ export class BinaryReader {
 	validateUint16(value, littleEndian){
 		return value === this.readUint16(littleEndian);
 	}
+	validateString(value) {
+		return value === this.readString(value.length);
+	}
 	readBit(){
 		let byte = this.view.getUint8(this.byteIndex);
 		const mask = 1;
@@ -103,10 +106,16 @@ export class BinaryReader {
 		return value;
 	}
 	readCString() {
+		return this.readStringUntilCode(0);
+	}
+	readStringUntilChar(stopChar) {
+		return this.readStringUntilCode(stopChar.charCodeAt(0));
+	}
+	readStringUntilCode(stopCode){
 		let string = "";
 		while (true) {
 			const c = this.readUint8();
-			if (c === 0) return string;
+			if (c === stopCode) return string;
 			string += String.fromCharCode(c);
 		}
 	}

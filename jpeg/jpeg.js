@@ -188,6 +188,6 @@ export class JpegDecoder extends BinaryReader {
 	}
 } 
 
-const file = Deno.readFileSync("./jpeg/profile.jpg");
+const file = Deno.readFileSync("./jpeg/sample.profile.jpg");
 const decoder = new JpegDecoder(file.buffer);
 console.log(decoder.decode());
